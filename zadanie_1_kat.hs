@@ -8,21 +8,42 @@ numbersCount xs = length [x|x<-xs,x `elem` ['0'..'9']]
 isPrime x = (length [y | y <- [1..x], x `mod` y == 0]) <=2
 primeGenerator n = [x | x <- [1..n], isPrime x]
 
+
+
+
+
+
+
 --9--
 suma xs = foldl (+) 0 xs
 
 
---split (x:xs)	| (x==0) 
---		| otherwise x : split xs
+splitt (x:xs)	| (x==0) = Nothing
+		| otherwise x : split xs
 
 --ked posplitujem zoznam toto pouzijem na sucet
 --main = map (foldl (+) 0) [[1, 2], [3, 4]]
 
 
 tester xs = [x | x <- xs, x == 0]
---foo x xs = map (foldl (+) 0 xs)
+foo xs = map (foldl (+) 0 xs)
+foox xs = foldl (+) 0 xs
 -- [foo x | x <-xs, x == 0]
---split xs = [i | i <- [0..(length xs - 1)], xs !! i == 0]
+--split xs = [[i] | i <- [0..(length xs - 1)], xs !! i /= 0]
+bar i xs = foox (take i xs)
+--split xs = [bar i xs | i <- [0..length xs -1], xs!!i == 0]
+
+
+testing (x:y:xs) = (y:x:xs)
+
+
+
+
+
+
+
+
+
 
 --druha kategoria
 --2--
