@@ -1,53 +1,19 @@
-import Data.List
-import Data.Ord
+--3.kat -- 4uloha
+--nefunguje dobre lebo velke cislo je to uz a zle to premeni..
+data Date = Date Int Int Int
+data Sex = Male | Female deriving (Show,Eq)
 
---4.kat: 3 uloha--
+foo d m y = y ++ m ++ d
 
-numberOfSeats :: Int
-numberOfSeats = 150
+--base = read (foo "07" "09" "90") :: Int
+--base = foo "07" "09" "90" ++ "1000"
 
-threshold :: Float
-threshold = 0.05
+base = (read (foo "07" "09" "90") :: Int) * 1000
 
-elections :: [(String, Int)]
-elections = [("Smer-SD", 880111), ("SDKU-DS", 390042), ("SaS", 307287), ("KDH", 215755), ("Most-Hid", 205538), ("SNS", 128490), ("SMK", 109638), ("LS-HZDS", 109480), ("SDL", 61137), ("LSNS", 33724), ("KSS", 21104), ("Unia", 17741), ("Paliho Kapurkova", 14576), ("EDS", 10332), ("ND", 7962), ("SRK", 6947), ("ZRS", 6196), ("AZEN", 3325)]
+findFirst x	| (x `mod` 11 == 0) = x
+		| otherwise = findFirst (succ(x))
 
-format :: (String, Int) ->  String
-format (x,y) = x ++ ".........." ++ show y ++ "\n"
+quax = [findFirst base + (11 * i) | i <- [0..n]] where n = 1000 `div` 11
 
---output = putStrLn (concat (map format elections))
-
-total xs = sum (map snd xs)
-
-totalVotes :: Int
-totalVotes  = total elections
-
-minimumVotes :: Float
-minimumVotes = fromIntegral(totalVotes) * threshold
-
-hasReachedThreshold :: Int -> Bool
-hasReachedThreshold x = (fromIntegral(x) > minimumVotes)
-
-inParliament = [(x,y) | (x,y) <- elections, hasReachedThreshold y]
-
-totalVotesInParliament :: Int
-totalVotesInParliament = total inParliament
-
---electionNumber = totalVotesInParliament / numberOfSeats
-electionNumber = totalVotesInParliament `div` numberOfSeats
-
-remainders = [ (x, y `mod` electionNumber) | (x,y) <- inParliament]
-tempMandates = [ (x, y `div` electionNumber) | (x,y) <- inParliament]
-totalMandates = total tempMandates
-
-needed = numberOfSeats - totalMandates
-magic = reverse (sortBy (comparing snd) remainders)
-
-foo = take needed magic
-
---SO CLOSE!!!!--
-mandates = [(x,y + remainder x) | (x,y) <- tempMandates] 
-	where remainder x = if(x`elem` map (fst) foo) then 1 else 0
-
-output1 = putStrLn (concat (map format tempMandates))
-output = putStrLn (concat (map format mandates))
+format x = take 6 (show x) ++ "/" ++ drop 6 (show x) ++ "\n"
+output = putStrLn (concat (map format quax))
