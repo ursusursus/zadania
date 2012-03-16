@@ -1,19 +1,29 @@
 --3.kat -- 4uloha
---nefunguje dobre lebo velke cislo je to uz a zle to premeni..
-data Date = Date Int Int Int
-data Sex = Male | Female deriving (Show,Eq)
 
-foo d m y = y ++ m ++ d
+data Date = Date Int Int Int deriving (Show)
+data Sex = Male | Female deriving (Eq)
 
---base = read (foo "07" "09" "90") :: Int
---base = foo "07" "09" "90" ++ "1000"
+initialize :: Date -> Sex -> Date
+initialize (Date y m d) s	| (s == Female) = (Date y (m+50) d)
+			 	| otherwise = (Date y m d)
 
-base = (read (foo "07" "09" "90") :: Int) * 1000
+findFirst :: Date -> Int -> Int
+findFirst (Date y m d) postfix 	| ((y+m+d+postfix) `mod` 11 == 0) = postfix
+				| otherwise = findFirst (Date y m d) (succ postfix)
 
-findFirst x	| (x `mod` 11 == 0) = x
-		| otherwise = findFirst (succ(x))
+findAll :: Int -> [Int]
+findAll postfix = [postfix + (11 * i) | i <- [0..], postfix + (11 * i) < 10000]
 
-quax = [findFirst base + (11 * i) | i <- [0..n]] where n = 1000 `div` 11
+format :: Date -> Int -> String
+format (Date y m d) postfix = show y ++ (format' m 2) ++ (format' d 2) ++ "/" ++ (format' postfix 4) ++ "\n"
 
-format x = take 6 (show x) ++ "/" ++ drop 6 (show x) ++ "\n"
-output = putStrLn (concat (map format quax))
+format' :: Int -> Int -> String
+format' number expectedDigits = zeros ++ show number
+	where	zeros = [ '0' | _ <- [1..n]]
+		n = expectedDigits - length (show number)
+
+generate :: Date -> Sex -> IO()
+generate (Date y m d) s = putStrLn (concat (take 20 (map (format (initialize (Date y m d) s)) (findAll (findFirst (initialize (Date y m d) s) 0)))))
+--generate (Date y m d) s = putStrLn (concat (map (format (initialize (Date y m d) s)) (findAll (findFirst (Date y m d) 0))))
+
+-- interval toho cyklu a skraslit kod
