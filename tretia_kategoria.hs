@@ -1,8 +1,12 @@
---3.kat -- 4uloha
+--4.	Vytvorte funkciu, ktorá bude generova všetky platné rodné èísla pre zadanı
+--	dátum narodenia a pohlavie. Na reprezentáciu dátumu a pohlavia pouite
+--	dátové typy.
+--	Vygenerované rodné èísla preveïte na reazce v tvare "xxxxxx=xxxx", prièom
+--	platí, e rodné èíslo je platné vtedy, ak je delite¾né èíslom 11.
 
 --neplatne datumy vyhodit error .. ?
 --data Date = Date [1954..] [1..12] [1..31] deriving (Show)
-data Date = Date Int Int Int deriving (Show)
+data Date = Date Int Int Int deriving (Show) -- Year Month Day
 data Sex = Male | Female deriving (Eq)
 
 

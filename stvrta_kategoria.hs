@@ -1,7 +1,22 @@
 import Data.List
 import Data.Ord
 
---4.kat: 3 uloha--
+--3.	Vytvorte program pre spracovanie vısledkov volieb. Vısledky volieb nech sú
+--	zadané ako zoznam dvojíc (názov strany, poèet hlasov). Program má vypoèí-
+--	ta, ktoré strany prekonajú hranicu prechodu do parlamentu a ko¾ko získajú
+--	poslaneckıch mandátov. Vısledok vypíšte v tvare.	
+--	Poèet kresiel a hranica pre vstup do parlamentu nech sú zadané prostredníctvom funkcií:
+--	Na testovanie programu môete poui vısledky volieb 2010.
+--	Postup vıpoètu poètu poslancov nech je nasledovnı (ide o mierne zjednodušenú verziu skutoèného postupu):
+--	Najprv sa vyberú strany, ktoré prekonali stanovenú hranicu (podiel z celkového poètu hlasov), a teda sa dostanú
+--	do parlamentu. Následne sa vypoèíta súèet hlasov za tieto strany a vydelí
+--	sa celkovım poètom poslancov. Takto získané èíslo nazvime volebnım èíslom. 
+--	Poèet hlasov za kadú postupujúcu stranu sa vydelí volebnım èíslom a
+--	vısledok celoèíselného delenia je predbenım poètom mandátov, ktoré strana
+--	dostane. Ak takımto spôsobom nebudú pridelené všetky mandáty, zvyšné
+--	mandáty je potrebné prideli (po jednom) stranám s najväèším zostatkom
+--	pri delení volebnım èíslom.
+
 
 numberOfSeats :: Int
 numberOfSeats = 150
