@@ -24,7 +24,7 @@ findAllPostfixes p	| (p < 10000) = p : findAllPostfixes (p+11)
 
 
 format :: Date -> Int -> String
-format (Date y m d) postfix = show y ++ (format' m 2) ++ (format' d 2) ++ "/" ++ (format' postfix 4) ++ "\n"
+format (Date y m d) postfix = (format' y 2) ++ (format' m 2) ++ (format' d 2) ++ "/" ++ (format' postfix 4) ++ "\n"
 
 format' :: Int -> Int -> String
 format' number expectedDigits = zeros ++ show number
@@ -39,8 +39,14 @@ generate (Date y m d) s = putStrLn formattedString
 		formattedList = map (format initializedDate) listOfPostfixes
 		listOfPostfixes = findAllPostfixes firstPostfix
 		firstPostfix = findFirstPostfix initializedDate 0
-		initializedDate = initialize (Date y m d) s
+		initializedDate = initialize validDate s
+		validDate = isValid (Date y m d)
 
 --yearParser (Date y m d) 	| length (show y) > 2 = (Date (read (drop 2 (show y)) :: Int) m d)
 --				| otherwise = (Date y m d)
 
+isValid :: Date -> Date
+isValid (Date y m d)	| (y < 0 || y > 99  ) = error "Invalid year"
+			| (m < 1 || m > 12) = error "Invalid month"
+			| (d < 1 || d > 31 ) = error "Invalid day"
+			| otherwise = (Date y m d)
